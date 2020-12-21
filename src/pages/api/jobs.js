@@ -10,6 +10,7 @@ export default async (req, res) => {
     let outer_data = [];
     let param = req.query.filters;
     let filters = JSON.parse(param)
+    let query = !filters.query ? '' : filters.query.toLowerCase();
 
     jobs.forEach((value) => {
         let inner_data = [];
@@ -17,7 +18,7 @@ export default async (req, res) => {
         let job_title = value.job_title.toString();
 
         value.items.forEach((item) => {
-            if(!filters.job_type && !filters.work_schedule && !filters.experience && !filters.department && !filters.query) {
+            if(!filters.job_type && !filters.work_schedule && !filters.experience && !filters.department && !query) {
                 inner_data.push(item); return;
             }
 
@@ -33,15 +34,15 @@ export default async (req, res) => {
                 || (filters.experience && filters.experience == item.experience)
                 || (filters.work_schedule && filters.work_schedule == item.work_schedule)
                 || (filters.department && item.department.includes(filters.department))
-                || (filters.query && name.toLowerCase().includes(filters.query))
-                || (filters.query && job_title.toLowerCase().includes(filters.query))
-                || (filters.query && city.toLowerCase().includes(filters.query))
-                || (filters.query && jtype.toLowerCase().includes(filters.query))
-                || (filters.query && state.toLowerCase().includes(filters.query))
-                || (filters.query && county.toLowerCase().includes(filters.query))
-                || (filters.query && address.toLowerCase().includes(filters.query))
-                || (filters.query && job_type.toLowerCase().includes(filters.query))
-                || (filters.query && experience.toLowerCase().includes(filters.query))) {
+                || (query && name.toLowerCase().includes(query))
+                || (query && job_title.toLowerCase().includes(query))
+                || (query && city.toLowerCase().includes(query))
+                || (query && jtype.toLowerCase().includes(query))
+                || (query && state.toLowerCase().includes(query))
+                || (query && county.toLowerCase().includes(query))
+                || (query && address.toLowerCase().includes(query))
+                || (query && job_type.toLowerCase().includes(query))
+                || (query && experience.toLowerCase().includes(query))) {
                 inner_data.push(item);
             } else {
                 return;
