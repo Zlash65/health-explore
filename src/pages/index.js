@@ -36,12 +36,20 @@ export default function Home({filters}) {
 }
 
 export const getStaticProps = async () => {
-    const res = await fetch("http://localhost:3000/api/filters");
-    const filters = await res.json();
+    try {
+        const res = await fetch("http://localhost:3000/api/filters");
+        const filters = await res.json();
 
-    return {
-        props: {
-            filters,
-        },
-    };
+        return {
+            props: {
+                filters,
+            },
+        };
+    } catch(err) {
+        return {
+            props: {
+                filters: {},
+            },
+        };
+    }
 };

@@ -52,7 +52,7 @@ export default class DataBox extends React.Component {
             }
         }
 
-        axios.get('http://localhost:3000/api/jobs', {params: {filters: local_filters}})
+        axios.get('/api/jobs', {params: {filters: local_filters}})
             .then((result) => {
                 console.log(result.data.query);
                 self.setState({
